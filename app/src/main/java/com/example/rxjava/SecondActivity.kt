@@ -13,6 +13,9 @@ import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.ReplaySubject
 import java.util.concurrent.TimeUnit
 
 class SecondActivity : AppCompatActivity() {
@@ -74,11 +77,36 @@ class SecondActivity : AppCompatActivity() {
             }
             else  if(title.toString().equals("Delay")){
 
-                Observable.merge(getZipObservable1(),getZipObservable2())
-                    .delay(2,TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.io())
+               /* var replay:PublishSubject<String> = PublishSubject.create()
+
+                getZipObservable1().subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(getZipObserver())
+                    .subscribe(replay)
+                replay.subscribe(getZipObserver())
+                replay.onNext("done")
+                replay.subscribe(getZipObserver())*/
+
+               /* var replay:BehaviorSubject<String> = BehaviorSubject.create()
+
+                getZipObservable1().subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(replay)
+                replay.subscribe(getZipObserver())
+                replay.onNext("done")
+                replay.subscribe(getZipObserver())*/
+
+
+              /*  var replay:ReplaySubject<String> = ReplaySubject.create()
+                getZipObservable1().subscribe(replay)
+                replay.subscribe(getZipObserver())
+                replay.subscribe(getZipObserver())*/
+
+
+                 Observable.merge(getZipObservable1(),getZipObservable2())
+                     .delay(2,TimeUnit.SECONDS)
+                     .subscribeOn(Schedulers.io())
+                     .observeOn(AndroidSchedulers.mainThread())
+                     .subscribe(getZipObserver())
             }
 
         }
